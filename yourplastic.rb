@@ -33,8 +33,6 @@ helpers do
 		if params.nil?
 			{}.to_json
 		else
-			puts params 
-			puts "\n\n"
 			params.keys.each do |k|
 				document = settings.mongo_db.find({ "#{k}" => /#{params[k]}/}).to_a
 				puts document
@@ -60,7 +58,6 @@ get '/search/?' do
 end
  
 post '/new_profile/?' do
-	#uuid = set_uuid()
 	content_type :json
 	db = settings.mongo_db
 	params[:_id] = set_uuid()
@@ -71,9 +68,6 @@ end
 put '/update/:_id/?' do
 	content_type :json
 	id = params[:_id]
-	#params.delete("splat")
-	puts request.params
-	puts "\n\n"
 	request.params.keys.each do |k|
 		settings.mongo_db.find(:_id => id).update_one("$set" => { "#{k}" => "#{request.params[k]}"})
 	end
