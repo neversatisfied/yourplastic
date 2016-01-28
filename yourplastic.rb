@@ -11,12 +11,7 @@ configure do
 	db = Mongo::Client.new(['127.0.0.1:27017'], :database => 'profiles')
 	set :mongo_db, db[:profiles]
 end
- 
- 
-get '/collections/?' do
-	content_type :json
-	settings.mongo_db.database.collection_names.to_json
-end
+
  
 def set_uuid()
 	uuid = UUIDTools::UUID.random_create
